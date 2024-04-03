@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotus_erp_pdv_pos/common/custom_image_logo.dart';
 
-import '../../core/custom_colors.dart';
+import '../../common/constant/custom_colors.dart';
 import '../auth/login_page.dart';
 
 class SplashPage extends StatefulWidget {
@@ -26,8 +27,8 @@ class _SplashPageState extends State<SplashPage> {
       });
     });
     Future.delayed(const Duration(seconds: 3), () async {
-    //  await TefElginCustomizationService.customizarAplicacao();
-      Get.off(() => const LoginPage());
+      //  await TefElginCustomizationService.customizarAplicacao();
+      Get.to(() => const LoginPage());
     });
     super.initState();
   }
@@ -37,7 +38,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: CustomColors.customSwatchColor,
       body: DecoratedBox(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: CustomColors.customSwatchColor,
         ),
         child: Center(
@@ -52,10 +53,7 @@ class _SplashPageState extends State<SplashPage> {
               color: CustomColors.customSwatchColor,
               child: SizedBox(
                 height: 500,
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  fit: BoxFit.fitWidth,
-                ),
+                child: CustomImageLogo().getLogoBranca(),
               ),
             ),
           ),
