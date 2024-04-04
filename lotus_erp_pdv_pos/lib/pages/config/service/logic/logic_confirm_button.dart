@@ -8,7 +8,7 @@ import 'package:lotus_erp_pdv_pos/models/collections/usuario.dart';
 import 'package:lotus_erp_pdv_pos/repositories/isar_db/tipo_recebimento/insert_tipo_recebimento.dart';
 import 'package:lotus_erp_pdv_pos/repositories/isar_db/usuario/insert_usuario.dart';
 
-import '../../../../repositories/http/verify_ip.dart';
+import '../../../../repositories/http/verify_ip_repository.dart';
 import '../../../../repositories/isar_db/dado_empresa/insert_dado_empresa.dart';
 import '../../../../repositories/isar_db/grupo/insert_group.dart';
 import '../../../../repositories/isar_db/grupo/search_group.dart';
@@ -30,8 +30,7 @@ class LogicConfirmButton {
       if (result == true) {
         Get.dialog(const LoadingPage());
         await _searchAndInsert(context);
-        await pdvController.setGroups();
-        await pdvController.setProducts();
+        
 
         Get.back();
       }

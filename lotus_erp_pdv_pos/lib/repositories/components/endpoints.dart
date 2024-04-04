@@ -3,6 +3,14 @@ import '../../services/dependencies.dart';
 class Endpoints {
   var configController = Dependencies.configController();
 
+  String endpointSearchImageGroup(String file) {
+    return '${configController.ipSelected.value}getimagem?categoria=GRU&file=$file&result=JSO';
+  }
+
+  String endpointSearchImageProduct(String file) {
+    return '${configController.ipSelected.value}getimagem?categoria=PRO&file=$file&result=JSO';
+  }
+
   String endpointSearchImageDIV(String file) {
     return '${configController.ipSelected.value}getimagem?categoria=DIV&file=$file&result=URL';
   }

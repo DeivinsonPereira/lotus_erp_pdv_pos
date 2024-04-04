@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import '../controller/bill_controller.dart';
 import '../controller/config_controller.dart';
 import '../controller/login_controller.dart';
 import '../controller/pdv_controller.dart';
@@ -27,6 +28,14 @@ class Dependencies {
       return Get.find<PdvController>();
     }else {
       return Get.put(PdvController());
+    }
+  }
+
+  static BillController billController() {
+    if(Get.isRegistered<BillController>()) {
+      return Get.find<BillController>();
+    }else {
+      return Get.put(BillController());
     }
   }
 }

@@ -11,4 +11,5 @@ abstract class CustomColors {
   static const Color brownColor = Color(0xFF72460c);
   static const Color backVista = Color.fromARGB(255, 11, 1, 46);
   static const Color backSlider = Color.fromARGB(255, 40, 40, 35);
+  static const Color backgroundPDV = Color.fromARGB(255, 206, 206, 206);
 }

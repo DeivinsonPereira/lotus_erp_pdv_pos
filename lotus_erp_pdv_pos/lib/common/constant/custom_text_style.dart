@@ -6,8 +6,16 @@ abstract class CustomTextStyles {
         color: Colors.black, fontWeight: FontWeight.bold, fontSize: fontSize);
   }
 
+  static TextStyle blackStyle(double fontSize) {
+    return TextStyle(color: Colors.black, fontSize: fontSize);
+  }
+
   static TextStyle whiteBoldStyle(double fontSize) {
     return TextStyle(
         color: Colors.white, fontWeight: FontWeight.bold, fontSize: fontSize);
+  }
+
+  static TextStyle whiteStyle(double fontSize) {
+    return TextStyle(color: Colors.white, fontSize: fontSize);
   }
 }

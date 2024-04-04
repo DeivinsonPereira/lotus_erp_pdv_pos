@@ -3,6 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotus_erp_pdv_pos/pages/pdv/pdv_page.dart';
+import 'package:lotus_erp_pdv_pos/repositories/http/download_persist_servidor_repository.dart';
+import 'package:lotus_erp_pdv_pos/repositories/isar_db/image_path_group/insert_path_group.dart';
+import 'package:lotus_erp_pdv_pos/repositories/isar_db/image_path_product/insert_path_product.dart';
 import '../../common/constant/custom_colors.dart';
 import '../../common/constant/custom_text_style.dart';
 import '../../common/custom_background_container.dart';
@@ -12,6 +15,7 @@ import '../../common/custom_position_content_container.dart';
 import '../../common/custom_text_field.dart';
 import '../../models/login_model.dart';
 import '../../services/dependencies.dart';
+import '../loading/loading_page.dart';
 import 'service/logic/logic_check_valid_login.dart';
 import 'service/logic/logic_execute_login.dart';
 import 'widget/button_config_page.dart';
@@ -23,6 +27,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var loginController = Dependencies.loginController();
     var configController = Dependencies.configController();
+    var pdvController = Dependencies.pdvController();
     configController.updateVariables();
 
     // Título da página "Login"
@@ -59,8 +64,22 @@ class LoginPage extends StatelessWidget {
               );
               bool isLogged = await LogicExecuteLogin().login(login, context);
               if (isLogged) {
-                Get.to(() => const PdvPage( ), transition: Transition.rightToLeft);
-                
+                Get.dialog(const LoadingPage());
+                await pdvController.setGroups();
+                await pdvController.setProducts();
+                pdvController.addGroupDescription();
+                await DownloadImagesRepository().downloadImageGroups();
+                await DownloadImagesRepository().downloadImageProducts();
+                await InsertPathGroup().saveImagemGrupos();
+                await InsertPathProduct().saveImagemProdutos();
+                Future.delayed(const Duration(seconds: 2), () async {
+                  await pdvController.setPathImageGroup();
+                  await pdvController.setPathImageProducts();
+                  await pdvController.filterProducts();
+                  await pdvController.filterPathImageProducts();
+                  Get.to(() => const PdvPage(),
+                      transition: Transition.rightToLeft);
+                });
               }
             }
           },

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import '../../../common/custom_text_field.dart';
 import '../../../controller/config_controller.dart';
-import '../../../repositories/http/get_ip.dart';
+import '../../../repositories/http/get_ip_repository.dart';
 import '../../../services/dependencies.dart';
 import 'custom_field_dropdown_color.dart';
 import 'custom_field_dropdown_monitor.dart';

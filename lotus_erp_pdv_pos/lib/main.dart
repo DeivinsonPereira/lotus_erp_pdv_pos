@@ -49,7 +49,7 @@ Future<void> main() async {
     directory: dir.path,
     inspector: true,
   );
-
+/*
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
   print('Running on ${androidInfo.model}');
@@ -57,7 +57,7 @@ Future<void> main() async {
   print('Device: ${androidInfo.device}');
   print('Brand: ${androidInfo.brand}');
   print('Display: ${androidInfo.display}');
-
+*/
   runApp(
     const MyApp(),
   );

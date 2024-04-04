@@ -16,7 +16,7 @@ class GetIp {
   Future<Ip> fetchIp() async {
     ConfigController configController = Dependencies.configController();
 
-    Uri uri = Uri.parse(await Endpoints().endpointSearchImage(configController.contractController.text));
+    Uri uri = Uri.parse(Endpoints().endpointSearchImage(configController.contractController.text));
     try {
       dynamic response = await http.get(uri);
 
