@@ -247,7 +247,7 @@ public class MainActivity extends FlutterActivity {
         try{
             dfmD2s.enviarComando(texto);
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            
         }
     }
 
@@ -259,7 +259,7 @@ public class MainActivity extends FlutterActivity {
 
             dfmD2s.enviarComando(texto);
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            
         }
     }
     
@@ -337,7 +337,7 @@ public class MainActivity extends FlutterActivity {
             dmf.RegAlterarValor_NFCe("CONFIGURACAO\\ImpressaoCompleta", "1");// impressão completa 0-resumida(sem itens) |1- tudo.
             dmf.iCFImprimir_NFCe(xml, xml, "", 34, 1);
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            
         }
     }
 

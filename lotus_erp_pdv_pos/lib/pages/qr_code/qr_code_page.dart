@@ -36,7 +36,7 @@ class QrCodePage extends StatelessWidget {
                     : QrImageView(
                         data: qrCode,
                         version: QrVersions.auto,
-                        size: Get.size.width * 0.34,
+                        size: Get.size.width * 0.8,
                       ),
               ),
             ),
