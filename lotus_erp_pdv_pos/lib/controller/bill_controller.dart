@@ -90,56 +90,44 @@ class BillController extends GetxController {
 
   // Remove um item do cartShopping ou diminua caso tenha quantity > 0
   // diminuindo também na sua respectiva lista inicial
-  void removeProductIncartShopping(int index, produto product) {
+  void removeProductIncartShopping(produto product) {
     if (cartShopping.isNotEmpty) {
-      var cartShoppingFiltered = cartShopping.firstWhere(
-          (element) => element['product'].id_produto == product.id_produto);
-      var productSelected = productsWeight.firstWhere(
-        (element) => element['product'].id_produto == product.id_produto,
-        orElse: () => null,
-      );
-
-      var productWeight = productsWeight.firstWhere(
-        (element) => element['product'].id_produto == product.id_produto,
-        orElse: () => null,
-      );
       if (product.venda_kg == 1) {
-        cartShopping.removeAt(cartShoppingFiltered);
-        if (productWeight != null) {
-          cartShopping.removeAt(productWeight);
+        var index = productsWeight.indexWhere(
+            (element) => element['product'].id_produto == product.id_produto);
+
+        var indexcart = cartShopping.indexWhere(
+            (element) => element['product'].id_produto == product.id_produto);
+
+        if (indexcart != -1) {
+          cartShopping.removeAt(indexcart);
+        }
+
+        if (index != -1) {
+          productsWeight.removeAt(index);
         }
       } else {
-        if (cartShoppingFiltered != null) {
-          if (cartShoppingFiltered['quantity'] > 1) {
-            cartShoppingFiltered['quantity'] -= 1;
-          } else {
-            cartShopping.removeAt(cartShoppingFiltered);
-          }
-        }
+        var index = productsInCart.indexWhere(
+            (element) => element['product'].id_produto == product.id_produto);
 
-        if (productWeight != null) {
-          if (productWeight['quantity'] > 1) {
-            productWeight['quantity'] -= 1;
-          } else {
-            cartShopping.removeAt(productWeight);
-          }
-        }
+        var indexcart = cartShopping.indexWhere(
+            (element) => element['product'].id_produto == product.id_produto);
 
-        if (productSelected != null) {
-          if (productSelected['quantity'] > 1) {
-            productSelected['quantity'] -= 1;
+        if (indexcart != -1) {
+          if (cartShopping[indexcart]['quantity'] > 1) {
+            cartShopping[indexcart]['quantity'] -= 1;
           } else {
-            cartShopping.removeAt(productSelected);
+            cartShopping.removeAt(indexcart);
+            productsInCart.removeAt(index);
           }
         }
       }
 
+      getQuantityTotal();
       update();
       cartShopping.refresh();
-
-      print(cartShopping);
-      print(productsWeight);
-      print(productsInCart);
+      productsWeight.refresh();
+      productsInCart.refresh();
     }
   }
 

@@ -8,6 +8,7 @@ import 'package:lotus_erp_pdv_pos/common/custom_elevated_button.dart';
 import 'package:lotus_erp_pdv_pos/common/custom_header.dart';
 import 'package:lotus_erp_pdv_pos/common/custom_total_value.dart';
 
+import '../../controller/bill_controller.dart';
 import '../../services/dependencies.dart';
 
 class CartShoppingPage extends StatelessWidget {
@@ -44,7 +45,7 @@ class CartShoppingPage extends StatelessWidget {
       );
     }
 
-    Widget _buildCard(int index, dynamic itemSelected) {
+    Widget _buildCard(int index, dynamic itemSelected, BillController _) {
       return Column(
         children: [
           Text(
@@ -61,8 +62,8 @@ class CartShoppingPage extends StatelessWidget {
           Row(children: [
             IconButton(
               onPressed: () {
-                billController.removeProductIncartShopping(
-                    index, itemSelected['product']);
+                billController
+                    .removeProductIncartShopping(itemSelected['product']);
               },
               icon: const Icon(Icons.delete),
             )
@@ -72,14 +73,16 @@ class CartShoppingPage extends StatelessWidget {
     }
 
     Widget _buildListCartShopping() {
-      return SizedBox(
-        width: Get.size.width,
-        child: ListView.builder(
-            itemCount: billController.cartShopping.length,
-            itemBuilder: (context, index) {
-              var itemSelected = billController.cartShopping[index];
-              return _buildCard(index, itemSelected);
-            }),
+      return GetBuilder<BillController>(
+        builder: (_) => SizedBox(
+          width: Get.size.width,
+          child: ListView.builder(
+              itemCount: _.cartShopping.length,
+              itemBuilder: (context, index) {
+                var itemSelected = _.cartShopping[index];
+                return _buildCard(index, itemSelected, _);
+              }),
+        ),
       );
     }
 
