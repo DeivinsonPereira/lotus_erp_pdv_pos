@@ -26,7 +26,10 @@ class CustomHeader extends StatelessWidget {
       return Stack(
         children: [
           IconButton(
-            onPressed: () => Get.to(() => const CartShoppingPage()),
+            onPressed: () {
+              billController!.joinCart();
+              Get.to(() => const CartShoppingPage());
+            },
             icon: const Icon(
               Icons.shopping_cart,
               color: Colors.white,

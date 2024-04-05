@@ -67,6 +67,7 @@ class BillController extends GetxController {
 
   // Junta duas listas de produtos que estão no carrinho
   void joinCart() {
+    cartShopping.clear();
     cartShopping.addAll(productsInCart);
     cartShopping.addAll(productsWeight);
     update();
