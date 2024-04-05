@@ -8,15 +8,14 @@ import 'package:lotus_erp_pdv_pos/common/custom_elevated_button.dart';
 import 'package:lotus_erp_pdv_pos/common/custom_header.dart';
 import 'package:lotus_erp_pdv_pos/common/custom_total_value.dart';
 
+import '../../services/dependencies.dart';
+
 class CartShoppingPage extends StatelessWidget {
   const CartShoppingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // TODO => implementar o carrinho de compras
-    Widget _buildListCards() {
-      return ListView.builder(itemCount: 5, itemBuilder: (context, index) {});
-    }
+    var billController = Dependencies.billController();
 
     // Constrói o botão de voltar
     Widget _buildBackButton() {
@@ -45,6 +44,45 @@ class CartShoppingPage extends StatelessWidget {
       );
     }
 
+    Widget _buildCard(int index, dynamic itemSelected) {
+      return Column(
+        children: [
+          Text(
+              '${itemSelected['product'].id_produto.toString()} - ${itemSelected['product'].descricao}'),
+          Text('Qtde: ${itemSelected['quantity'].toString()}'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Total: '),
+              Text(
+                  'R\$ ${(itemSelected['product'].pvenda * itemSelected['quantity']).toString()}'),
+            ],
+          ),
+          Row(children: [
+            IconButton(
+              onPressed: () {
+                billController.removeProductIncartShopping(
+                    index, itemSelected['product']);
+              },
+              icon: const Icon(Icons.delete),
+            )
+          ])
+        ],
+      );
+    }
+
+    Widget _buildListCartShopping() {
+      return SizedBox(
+        width: Get.size.width,
+        child: ListView.builder(
+            itemCount: billController.cartShopping.length,
+            itemBuilder: (context, index) {
+              var itemSelected = billController.cartShopping[index];
+              return _buildCard(index, itemSelected);
+            }),
+      );
+    }
+
     Widget _buildButtonsBackContinue() {
       return Row(children: [
         Expanded(
@@ -55,13 +93,16 @@ class CartShoppingPage extends StatelessWidget {
     }
 
     return Scaffold(
-      body: Column(
-        children: [
-          CustomHeader(),
-          Expanded(child: _buildListCards()),
-          const CustomTotalValue(),
-          _buildButtonsBackContinue(),
-        ],
+      body: SizedBox(
+        width: Get.size.width,
+        child: Column(
+          children: [
+            CustomHeader(),
+            Expanded(child: _buildListCartShopping()),
+            const CustomTotalValue(),
+            _buildButtonsBackContinue(),
+          ],
+        ),
       ),
     );
   }

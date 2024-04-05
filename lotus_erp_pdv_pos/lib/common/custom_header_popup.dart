@@ -29,7 +29,7 @@ class CustomHeaderPopup extends StatelessWidget {
                 children: [
                   Text(
                     text,
-                    style: CustomTextStyles.blackBoldStyle(20),
+                    style: CustomTextStyles.whiteBoldStyle(20),
                   ),
                 ],
               ),

@@ -57,13 +57,14 @@ class PdvPage extends StatelessWidget {
     }
 
     // Constrói o botão de continuar
-    Widget _buildContinueButton() {
+    Widget _buildContinueButton(BillController _) {
       return SizedBox(
         height: Get.size.height * 0.07,
         child: CustomElevatedButton(
             text: 'Continuar',
             color: CustomColors.confirmButtonColor,
             onPressed: () {
+              _.joinCart();
               Get.to(() => const CartShoppingPage());
             },
             style: CustomTextStyles.blackBoldStyle(20),
@@ -77,7 +78,7 @@ class PdvPage extends StatelessWidget {
         Expanded(
           child: _buildCleanButton(_),
         ),
-        Expanded(child: _buildContinueButton()),
+        Expanded(child: _buildContinueButton(_)),
       ]);
     }
 

@@ -10,6 +10,7 @@ import 'package:lotus_erp_pdv_pos/services/format_numbers.dart';
 import '../../../common/constant/custom_text_style.dart';
 import '../../../models/collections/produto.dart';
 import '../../../services/dependencies.dart';
+import 'product_kg_dialog.dart';
 
 class ProductWidget extends StatelessWidget {
   const ProductWidget({super.key});
@@ -53,7 +54,6 @@ class ProductWidget extends StatelessWidget {
     Widget _buildImageCard(dynamic product, int index, PdvController _) {
       return Stack(
         children: [
-          // TODO => Implementar (digitar) valor da balança
           CustomImage().getImageProduct(
               index < _.pathImageProductsFiltered.length
                   ? _.pathImageProductsFiltered[index].path_image ?? ''
@@ -83,7 +83,15 @@ class ProductWidget extends StatelessWidget {
     Widget _buildCardProduct(dynamic product, int index, PdvController _) {
       return InkWell(
         onTap: () {
-          billController.addProductInCart(product);
+          if (product.venda_kg == 1) {
+            Get.dialog(
+                barrierDismissible: false,
+                ProductKgDialog(
+                  product: product,
+                ));
+          } else {
+            billController.addProductInCart(product);
+          }
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),

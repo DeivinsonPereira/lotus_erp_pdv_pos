@@ -66,7 +66,9 @@ class CustomHeader extends StatelessWidget {
                 children: [
                   isPdvPage!
                       ? IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            billController!.joinCart();
+                          },
                           icon: const Icon(
                             Icons.menu,
                             color: Colors.white,

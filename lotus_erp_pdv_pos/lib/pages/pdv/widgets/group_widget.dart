@@ -86,7 +86,7 @@ class GroupWidget extends StatelessWidget {
         builder: (_) {
           return SizedBox(
             height: Get.size.height * 0.17,
-            width: Get.size.width * 0.9,
+            width: Get.size.width,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: pdvController.groupsDescription.length,
