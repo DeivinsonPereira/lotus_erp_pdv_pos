@@ -32,6 +32,9 @@ class ConfigController extends GetxController {
 
   var userId = 0.obs;
   var collaboratorId = 0.obs;
+  var userLogin = '';
+
+  var idCaixaServidor = 0.obs;
 
   @override
   void onInit() {
@@ -39,6 +42,11 @@ class ConfigController extends GetxController {
     addContratoController();
   }
 
+  // Atualiza o id do caixa vindo do servidor
+  void setIdCaixaServidor(String value) =>
+      idCaixaServidor.value = int.parse(value);
+
+  // Adiciona o ip
   void addIpController(String value) => contractController.text = value;
 
   // Atualiza o tamanho da impressora
@@ -114,4 +122,13 @@ class ConfigController extends GetxController {
     }
     contractController.text = ip;
   }
+
+  // Atualiza a variavel userId do usuario logado
+  void updateUserId(int value) => userId.value = value;
+
+  // Atualiza a variavel collaboratorId do usuario logado
+  void updateCollaboratorId(int value) => collaboratorId.value = value;
+
+  // Atualiza a variavel userLogin do usuario logado
+  void updateUserLogin(String value) => userLogin = value;
 }

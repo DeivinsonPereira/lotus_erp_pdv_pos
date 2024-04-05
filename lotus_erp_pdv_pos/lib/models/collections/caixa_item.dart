@@ -7,7 +7,6 @@ part 'caixa_item.g.dart';
 
 @Collection()
 class caixa_item {
-
   Id id = Isar.autoIncrement;
   int id_caixa; //id do caixa que vem da tabela Caixa
   String? descricao;
@@ -18,7 +17,7 @@ class caixa_item {
   double? valor_deb;
   int? id_venda;
   int enviado;
-  
+
   caixa_item({
     required this.id_caixa,
     this.descricao,
@@ -52,8 +51,16 @@ class caixa_item {
       data: DateTime.fromMillisecondsSinceEpoch(map['data'] as int),
       hora: map['hora'] as String,
       id_tipo_recebimento: map['id_tipo_recebimento'] as int,
-      valor_cre: map['valor_cre'] != null ? map['valor_cre'] is int ? (map['valor_cre'] as int).toDouble() :map['valor_cre'] as double : null,
-      valor_deb: map['valor_deb'] != null ? map['valor_deb'] is int ? (map['valor_deb'] as int).toDouble() :map['valor_deb'] as double : null,
+      valor_cre: map['valor_cre'] != null
+          ? map['valor_cre'] is int
+              ? (map['valor_cre'] as int).toDouble()
+              : map['valor_cre'] as double
+          : null,
+      valor_deb: map['valor_deb'] != null
+          ? map['valor_deb'] is int
+              ? (map['valor_deb'] as int).toDouble()
+              : map['valor_deb'] as double
+          : null,
       id_venda: map['id_venda'] != null ? map['id_venda'] as int : null,
       enviado: map['enviado'] as int,
     );
@@ -61,5 +68,6 @@ class caixa_item {
 
   String toJson() => json.encode(toMap());
 
-  factory caixa_item.fromJson(String source) => caixa_item.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory caixa_item.fromJson(String source) =>
+      caixa_item.fromMap(json.decode(source) as Map<String, dynamic>);
 }

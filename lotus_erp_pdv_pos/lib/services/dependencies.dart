@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../controller/bill_controller.dart';
 import '../controller/config_controller.dart';
 import '../controller/login_controller.dart';
+import '../controller/open_register_controller.dart';
+import '../controller/payment_controller.dart';
 import '../controller/pdv_controller.dart';
 import '../controller/weight_controller.dart';
 
@@ -44,6 +46,22 @@ class Dependencies {
       return Get.find<PesageController>();
     } else {
       return Get.put(PesageController());
+    }
+  }
+
+  static PaymentController paymentController() {
+    if (Get.isRegistered<PaymentController>()) {
+      return Get.find<PaymentController>();
+    }else {
+      return Get.put(PaymentController()); 
+    }
+  }
+
+  static OpenRegisterController openRegisterController() {
+    if (Get.isRegistered<OpenRegisterController>()) {
+      return Get.find<OpenRegisterController>();
+    } else {
+      return Get.put(OpenRegisterController());
     }
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'core/app_widget.dart';
-import 'package:device_info_plus/device_info_plus.dart';
+//import 'package:device_info_plus/device_info_plus.dart';
 import 'models/collections/caixa.dart';
 import 'models/collections/caixa_fechamento.dart';
 import 'models/collections/caixa_item.dart';

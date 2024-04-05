@@ -13,6 +13,7 @@ import 'package:lotus_erp_pdv_pos/services/format_strings.dart';
 import '../../controller/bill_controller.dart';
 import '../../services/dependencies.dart';
 import '../../services/format_numbers.dart';
+import '../payment/payment_page.dart';
 
 class CartShoppingPage extends StatelessWidget {
   const CartShoppingPage({super.key});
@@ -35,59 +36,76 @@ class CartShoppingPage extends StatelessWidget {
       );
     }
 
+    // Constrói o botão de continuar
     Widget _buildContinueButton() {
       return SizedBox(
         height: Get.size.height * 0.07,
         child: CustomElevatedButton(
           text: 'Seguir',
           color: CustomColors.confirmButtonColor,
-          onPressed: () {},
+          onPressed: () => Get.to(() => const PaymentPage()),
           style: CustomTextStyles.blackBoldStyle(20),
           radious: 0,
         ),
       );
     }
 
+    // Constrói a linha de id - nome do item e botão remover
+    Widget _buildLineDescription(dynamic itemSelected) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            '${FormatStrings.maxLength('${itemSelected['product'].id_produto.toString()} - ${itemSelected['product'].descricao}', 27)} ',
+            style: CustomTextStyles.blackBoldStyle(18),
+          ),
+          IconButton(
+            onPressed: () {
+              billController
+                  .removeProductIncartShopping(itemSelected['product']);
+            },
+            icon: const Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
+          )
+        ],
+      );
+    }
+
+    // Constrói a linha de quantidade
+    Widget _buildQuantity(dynamic itemSelected) {
+      return Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Qtde: ${itemSelected['quantity'].toString()}',
+            style: CustomTextStyles.blackStyle(18),
+          ));
+    }
+
+    // Constrói a linha de total
+    Widget _buildTotalValue(dynamic itemSelected) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text('Total: ', style: CustomTextStyles.blackStyle(18)),
+          Text(
+            'R\$ ${(FormatNumbers.formatNumbertoString(itemSelected['product'].pvenda * itemSelected['quantity']).toString())}',
+            style: CustomTextStyles.blackBoldStyle(18),
+          ),
+        ],
+      );
+    }
+
+    // Costrói o card do carrinho
     Widget _buildCard(int index, dynamic itemSelected, BillController _) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '${FormatStrings.maxLength('${itemSelected['product'].id_produto.toString()} - ${itemSelected['product'].descricao}', 27)} ',
-                  style: CustomTextStyles.blackBoldStyle(18),
-                ),
-                IconButton(
-                  onPressed: () {
-                    billController
-                        .removeProductIncartShopping(itemSelected['product']);
-                  },
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                )
-              ],
-            ),
-            Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Qtde: ${itemSelected['quantity'].toString()}',
-                  style: CustomTextStyles.blackStyle(18),
-                )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Total: ', style: CustomTextStyles.blackStyle(18)),
-                Text(
-                  'R\$ ${(FormatNumbers.formatNumbertoString(itemSelected['product'].pvenda * itemSelected['quantity']).toString())}',
-                  style: CustomTextStyles.blackBoldStyle(18),
-                ),
-              ],
-            ),
+            _buildLineDescription(itemSelected),
+            _buildQuantity(itemSelected),
+            _buildTotalValue(itemSelected),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 4.0),
               child: Divider(),
@@ -97,6 +115,7 @@ class CartShoppingPage extends StatelessWidget {
       );
     }
 
+    // Constrói a lista de itens no carrinho
     Widget _buildListCartShopping() {
       return GetBuilder<BillController>(
         builder: (_) => SizedBox(
@@ -111,6 +130,7 @@ class CartShoppingPage extends StatelessWidget {
       );
     }
 
+    // Constrói os botões de voltar e continuar
     Widget _buildButtonsBackContinue() {
       return Row(children: [
         Expanded(
@@ -120,6 +140,7 @@ class CartShoppingPage extends StatelessWidget {
       ]);
     }
 
+    // Constrói a tela do carrinho
     return Scaffold(
       body: SizedBox(
         width: Get.size.width,

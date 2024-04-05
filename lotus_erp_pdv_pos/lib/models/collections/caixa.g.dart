@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: camel_case_extensions
-
 part of 'caixa.dart';
 
 // **************************************************************************
@@ -139,11 +137,11 @@ caixa _caixaDeserialize(
     fechou_data: reader.readDateTimeOrNull(offsets[5]),
     fechou_hora: reader.readStringOrNull(offsets[6]),
     fechou_id_user: reader.readLongOrNull(offsets[7]),
-    id_caixa: id,
     id_caixa_servidor: reader.readLongOrNull(offsets[8]),
     id_empresa: reader.readLong(offsets[9]),
     status: reader.readLong(offsets[10]),
   );
+  object.id_caixa = id;
   return object;
 }
 

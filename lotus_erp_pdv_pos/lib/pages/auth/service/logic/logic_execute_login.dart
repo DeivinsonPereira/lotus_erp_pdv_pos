@@ -19,7 +19,6 @@ class LogicExecuteLogin {
     if (usuarios.isEmpty) {
       return false;
     }
-
     var user = usuarios
         .where((element) =>
             element!.login == loginController.usernameController.text &&

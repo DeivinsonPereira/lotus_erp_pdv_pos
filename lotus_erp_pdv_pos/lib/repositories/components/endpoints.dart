@@ -34,4 +34,12 @@ class Endpoints {
   String endpointSearchTypePayment() {
     return '${configController.ipSelected.value}pdvmobget06_tipos_recebimentos?pidEmpresa=${configController.idCompany.value}';
   }
+
+  String endpointOpenRegister() {
+    return '${configController.ipSelected.value}pdvmobpost07_caixa_abrir';
+  }
+
+  String endpointPostNFCE() {
+    return '${configController.ipSelected.value}nfce_emitir';
+  }
 }
