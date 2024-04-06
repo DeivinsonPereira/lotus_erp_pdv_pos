@@ -18,6 +18,8 @@ class PrintNfceXml {
     try {
       if (xmlArgs != null) {
         xml = xmlArgs;
+      } else {
+        paymentController.xml.value;
       }
       tamanhoImpressora = 'Q4';
 
