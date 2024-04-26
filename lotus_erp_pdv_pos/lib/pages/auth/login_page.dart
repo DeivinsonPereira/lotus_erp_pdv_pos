@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotus_erp_pdv_pos/models/collections/usuario_logado.dart';
-import 'package:lotus_erp_pdv_pos/repositories/isar_db/usuario_logado/get_usuario_logado.dart';
 import '../../common/constant/custom_colors.dart';
 import '../../common/constant/custom_text_style.dart';
 import '../../common/custom_background_container.dart';
@@ -12,10 +10,10 @@ import '../../common/custom_elevated_button.dart';
 import '../../common/custom_position_content_container.dart';
 import '../../common/custom_text_field.dart';
 import '../../models/login_model.dart';
+import '../../repositories/http/execute_login.dart';
 import '../../services/dependencies.dart';
+import '../home/home_page.dart';
 import 'service/logic/logic_check_valid_login.dart';
-import 'service/logic/logic_execute_login.dart';
-import 'service/logic/logic_navigation_to_pdv.dart';
 import 'widget/button_config_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -25,6 +23,8 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var loginController = Dependencies.loginController();
     var configController = Dependencies.configController();
+    Dependencies.empresaValidaController();
+    Dependencies.passwordController(context);
     configController.updateVariables();
 
     // Título da página "Login"
@@ -56,21 +56,13 @@ class LoginPage extends StatelessWidget {
             );
             if (isValid) {
               Login login = Login(
-                usuario: loginController.usernameController.text,
-                senha: loginController.passwordController.text,
+                login: loginController.usernameController.text,
+                password: loginController.passwordController.text,
               );
-              bool isLogged = await LogicExecuteLogin().login(login, context);
+              bool isLogged = await ExecuteLogin().login(login, context);
 
               if (isLogged) {
-                usuario_logado? result =
-                    await GetUsuarioLogado().getUsuarioLogado();
-                if (result != null) {
-                  configController.updateUserId(result.id_user!);
-                  configController.updateCollaboratorId(result.id_colaborador!);
-                  configController.updateUserLogin(result.login!);
-
-                  LogicNavigationToPdv().navigationToPdv(context);
-                }
+                Get.to(() => const HomePage());
               }
             }
           },

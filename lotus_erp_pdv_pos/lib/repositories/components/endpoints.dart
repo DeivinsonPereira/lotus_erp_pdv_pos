@@ -1,45 +1,84 @@
+import 'package:flutter/foundation.dart';
+
 import '../../services/dependencies.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 class Endpoints {
-  var configController = Dependencies.configController();
+  static var empresaValidaController = Dependencies.empresaValidaController();
+  var ip = empresaValidaController.ipSelected;
+  var idCliente = empresaValidaController.idCliente;
+  var ipSiagenet = 'http://siage.vistatecnologia.com.br/cgi-bin/siagenet/';
+
+  Future<String> endpointEmpresaValida() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if (kDebugMode) {
+      print(androidInfo.serialNumber);
+    }
+    return '${ipSiagenet}licenca_ativar?ptipo=0&pchave=${empresaValidaController.licencaContratoController.text}&pnserie=${androidInfo.serialNumber}&pcnpj=${empresaValidaController.cnpjController.text}';
+  }
+
+  String endpointLicenceSituation() {
+    return '${ipSiagenet}licenca_situacao?pchave=${empresaValidaController.licence}&pcnpj=${empresaValidaController.cnpj}';
+  }
+
+  String endpointSearchClientId() {
+    return '${ip}partner-clientes?method=retornaId';
+  }
+
+  String endpointLogin() {
+    return '${ip}auth/user/pass';
+  }
+
+  String endpointEmpresa() {
+    return '${ip}empresa?method=obterPeloCnpj';
+  }
+
+  String endpointGrupo() {
+    return '${ip}produto-grupos/?method=obterTodos&id_partner_cliente=$idCliente';
+  }
+
+  String endpointProdutos() {
+    return '${ip}produto?method=obterTodos&id_partner_cliente=$idCliente';
+  }
+
+  String endpointTipoRecebimento() {
+    return '${ip}tipo-recebimento?method=obterTodos&id_partner_cliente=$idCliente';
+  }
+
+  String endpointAbrirCaixa() {
+    return '${ip}caixa?method=abrir';
+  }
+
+  String endpointFecharCaixa() {
+    return '${ip}caixa?method=fechar';
+  }
+
+  String endpointCaixaItem() {
+    return '${ip}caixa-itens?method=movimentar';
+  }
 
   String endpointSearchImageGroup(String file) {
-    return '${configController.ipSelected.value}getimagem?categoria=GRU&file=$file&result=JSO';
+    return '${ip}produto-grupos?method=retornarImagem&id_partner_cliente=$idCliente&img=$file';
   }
 
   String endpointSearchImageProduct(String file) {
-    return '${configController.ipSelected.value}getimagem?categoria=PRO&file=$file&result=JSO';
+    return '${ip}produto?method=retornarImagem&id_partner_cliente=$idCliente&img=$file';
   }
 
-  String endpointSearchImageDIV(String file) {
-    return '${configController.ipSelected.value}getimagem?categoria=DIV&file=$file&result=URL';
+  String endpointSearchDefaultLogo(String? file) {
+    return '${ip}empresa?method=retornarImagem&id_partner_cliente=$idCliente&img=$file';
   }
 
-  String endpointSearchImage(String contract) {
-    return "http://siage.vistatecnologia.com.br/cgi-bin/siagenet/contrato_link_externo?pnocontrato=$contract&ptipo=0";
+  String endpointSearchWhiteLogo(String? file) {
+    return '${ip}empresa?method=retornarImagem&id_partner_cliente=$idCliente&img=$file';
   }
 
-  String endpointSearchUsuario() {
-    return '${configController.ipSelected.value}pdvmobget02_usuarios?pidEmpresa=${configController.idCompany.value}';
+  String endpointVenda() {
+    return '${ip}venda';
   }
 
-  String endpointSearchProduct() {
-    return '${configController.ipSelected.value}pdvmobget05_produtos?pidEmpresa=${configController.idCompany.value}';
-  }
-
-  String endpointSearchGroup() {
-    return '${configController.ipSelected.value}pdvmobget03_produtos_grupos?pidEmpresa=${configController.idCompany.value}';
-  }
-
-  String endpointSearchTypePayment() {
-    return '${configController.ipSelected.value}pdvmobget06_tipos_recebimentos?pidEmpresa=${configController.idCompany.value}';
-  }
-
-  String endpointOpenRegister() {
-    return '${configController.ipSelected.value}pdvmobpost07_caixa_abrir';
-  }
-
-  String endpointPostNFCE() {
-    return '${configController.ipSelected.value}nfce_emitir';
+  String endpointNfceEmitir() {
+    return '${ip}nfce/emitir';
   }
 }

@@ -13,6 +13,7 @@ import '../components/header.dart';
 class DownloadImagesRepository {
   Logger logger = Logger();
   var pdvController = Dependencies.pdvController();
+  var configController = Dependencies.configController();
 
   Future<void> downloadImageGroups() async {
     try {
@@ -32,7 +33,7 @@ class DownloadImagesRepository {
               Uri.parse(
                 url,
               ),
-              headers: Header.header);
+              headers: Header.getBasicHeader());
 
           if (response.statusCode == 200) {
             try {
@@ -84,7 +85,7 @@ class DownloadImagesRepository {
               Uri.parse(
                 url,
               ),
-              headers: Header.header);
+              headers: Header.getBasicHeader());
 
           if (response.statusCode == 200) {
             try {
@@ -125,13 +126,13 @@ class DownloadImagesRepository {
       await deleteExistingFiles('${dir.path}/assets/logos/');
 
       String urlLogoPadrao =
-          Endpoints().endpointSearchImageDIV('PDV_Logo_Padrao.png');
+          Endpoints().endpointSearchDefaultLogo(configController.imageLogoPadrao);
       try {
         var response = await http.get(
             Uri.parse(
               urlLogoPadrao,
             ),
-            headers: Header.header);
+            headers: Header.getBasicHeader());
         if (response.statusCode == 200) {
           try {
             var jsonResponse = jsonDecode(response.body);
@@ -156,13 +157,13 @@ class DownloadImagesRepository {
       }
 
       String urlLogoBranca =
-          Endpoints().endpointSearchImageDIV('PDV_Logo_Branca.png');
+          Endpoints().endpointSearchWhiteLogo(configController.imageLogoBranca);
       try {
         var response = await http.get(
             Uri.parse(
               urlLogoBranca,
             ),
-            headers: Header.header);
+            headers: Header.getBasicHeader());
         if (response.statusCode == 200) {
           try {
             var jsonResponse = jsonDecode(response.body);

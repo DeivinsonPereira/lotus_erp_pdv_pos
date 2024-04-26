@@ -12,8 +12,6 @@ import 'package:lotus_erp_pdv_pos/pages/open_register/components/container_date.
 import 'package:lotus_erp_pdv_pos/services/datetime_formatter.dart';
 import 'package:lotus_erp_pdv_pos/services/dependencies.dart';
 
-import '../auth/service/logic/logic_navigation_to_pdv.dart';
-
 class OpenRegisterDialog extends StatelessWidget {
   const OpenRegisterDialog({super.key});
 
@@ -76,7 +74,6 @@ class OpenRegisterDialog extends StatelessWidget {
           onPressed: () {
             if (openRegisterController.buttonEnabled.value) {
               openRegisterController.toggleButtonEnabled(false);
-              LogicNavigationToPdv().navigationToPdvWithOpenRegister(context);
             }
           },
           style: openRegisterController.buttonEnabled.value

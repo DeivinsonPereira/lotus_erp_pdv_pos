@@ -1,6 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// ignore_for_file: non_constant_identifier_names, camel_case_types
-
+// ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names, camel_case_types
 import 'dart:convert';
 
 import 'package:isar/isar.dart';
@@ -10,180 +8,80 @@ part 'empresa.g.dart';
 @Collection()
 class empresa {
   Id id;
-  String? razao;
+  String? name;
   String? fantasia;
   String? cnpj;
-  String? insc_estadual;
-  String? insc_municipal;
   String? fone1;
-  String? fone2;
-  String? fone3;
-  String? endereco;
-  String? bairro;
-  String? numero;
-  String? municipio;
-  String? municipio_uf;
   String? cep;
-  String? email;
-  String? site;
+  String? endereco;
+  String? enderecoNumero;
+  String? bairro;
   String? complemento;
-  int? estoque_grade;
-  int? usar_paf_nfce;
-  int? param_nf_crt;
-  int? param_pdv_usar_pvista_pprazo;
-  int? param_vendas_tpcomissao;
-  int? param_vendas_portador;
-  double? param_vendas_descmaximo;
-  int? param_pdv_codigopesagem;
-  int? param_pdv_formapagto;
-  int? param_pdv_cliente;
-  int? param_pdv_bloq_est_neg;
-  int? param_pdv_validar_cx_fechado;
-  int? param_pdv_senha_cancelar;
-  int? param_pdv_imp_cp_nf_venda;
-  int? param_pdv_prodcomposto;
-  int? param_pdv_informa_cliente;
-  int? param_pdv_vendedor_venda;
-  int? param_pdv_cartao_gerarparc;
-  int? param_pdv_imp_comprovante;
-  int? param_pdv_permitir_desconto;
-  int? param_pdv_tipo_desconto;
-  int? param_pdv_gerar_senha;
-  int? param_pdv_comanda_producao;
-
-  empresa(
-    this.id,
-    this.razao,
+  String? idMunicipio;
+  String? municipio;
+  String? email;
+  int? status;
+  String? logo_padrao;
+  String? logo_branca;
+  
+  empresa({
+    required this.id,
+    this.name,
     this.fantasia,
     this.cnpj,
-    this.insc_estadual,
-    this.insc_municipal,
     this.fone1,
-    this.fone2,
-    this.fone3,
-    this.endereco,
-    this.bairro,
-    this.numero,
-    this.municipio,
-    this.municipio_uf,
     this.cep,
-    this.email,
-    this.site,
+    this.endereco,
+    this.enderecoNumero,
+    this.bairro,
     this.complemento,
-    this.estoque_grade,
-    this.usar_paf_nfce,
-    this.param_nf_crt,
-    this.param_pdv_usar_pvista_pprazo,
-    this.param_vendas_tpcomissao,
-    this.param_vendas_portador,
-    this.param_vendas_descmaximo,
-    this.param_pdv_codigopesagem,
-    this.param_pdv_formapagto,
-    this.param_pdv_cliente,
-    this.param_pdv_bloq_est_neg,
-    this.param_pdv_validar_cx_fechado,
-    this.param_pdv_senha_cancelar,
-    this.param_pdv_imp_cp_nf_venda,
-    this.param_pdv_prodcomposto,
-    this.param_pdv_informa_cliente,
-    this.param_pdv_vendedor_venda,
-    this.param_pdv_cartao_gerarparc,
-    this.param_pdv_imp_comprovante,
-    this.param_pdv_permitir_desconto,
-    this.param_pdv_tipo_desconto,
-    this.param_pdv_gerar_senha,
-    this.param_pdv_comanda_producao,
-  );
+    this.idMunicipio,
+    this.municipio,
+    this.email,
+    this.status,
+    this.logo_padrao,
+    this.logo_branca,
+  });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'razao': razao,
+      'name': name,
       'fantasia': fantasia,
       'cnpj': cnpj,
-      'insc_estadual': insc_estadual,
-      'insc_municipal': insc_municipal,
       'fone1': fone1,
-      'fone2': fone2,
-      'fone3': fone3,
-      'endereco': endereco,
-      'bairro': bairro,
-      'numero': numero,
-      'municipio': municipio,
-      'municipio_uf': municipio_uf,
       'cep': cep,
-      'email': email,
-      'site': site,
+      'endereco': endereco,
+      'enderecoNumero': enderecoNumero,
+      'bairro': bairro,
       'complemento': complemento,
-      'estoque_grade': estoque_grade,
-      'usar_paf_nfce': usar_paf_nfce,
-      'param_nf_crt': param_nf_crt,
-      'param_pdv_usar_pvista_pprazo': param_pdv_usar_pvista_pprazo,
-      'param_vendas_tpcomissao': param_vendas_tpcomissao,
-      'param_vendas_portador': param_vendas_portador,
-      'param_vendas_descmaximo': param_vendas_descmaximo,
-      'param_pdv_codigopesagem': param_pdv_codigopesagem,
-      'param_pdv_formapagto': param_pdv_formapagto,
-      'param_pdv_cliente': param_pdv_cliente,
-      'param_pdv_bloq_est_neg': param_pdv_bloq_est_neg,
-      'param_pdv_validar_cx_fechado': param_pdv_validar_cx_fechado,
-      'param_pdv_senha_cancelar': param_pdv_senha_cancelar,
-      'param_pdv_imp_cp_nf_venda': param_pdv_imp_cp_nf_venda,
-      'param_pdv_prodcomposto': param_pdv_prodcomposto,
-      'param_pdv_informa_cliente': param_pdv_informa_cliente,
-      'param_pdv_vendedor_venda': param_pdv_vendedor_venda,
-      'param_pdv_cartao_gerarparc': param_pdv_cartao_gerarparc,
-      'param_pdv_imp_comprovante': param_pdv_imp_comprovante,
-      'param_pdv_permitir_desconto': param_pdv_permitir_desconto,
-      'param_pdv_tipo_desconto': param_pdv_tipo_desconto,
-      'param_pdv_gerar_senha': param_pdv_gerar_senha,
-      'param_pdv_comanda_producao': param_pdv_comanda_producao,
+      'idMunicipio': idMunicipio,
+      'municipio': municipio,
+      'email': email,
+      'status': status,
+      'logo_padrao': logo_padrao,
+      'logo_branca': logo_branca,
     };
   }
 
   factory empresa.fromMap(Map<String, dynamic> map) {
     return empresa(
-      map['id'] as int,
-      map['razao'] != null ? map['razao'] as String : null,
-      map['fantasia'] != null ? map['fantasia'] as String : null,
-      map['cnpj'] != null ? map['cnpj'] as String : null,
-      map['insc_estadual'] != null ? map['insc_estadual'] as String : null,
-      map['insc_municipal'] != null ? map['insc_municipal'] as String : null,
-      map['fone1'] != null ? map['fone1'] as String : null,
-      map['fone2'] != null ? map['fone2'] as String : null,
-      map['fone3'] != null ? map['fone3'] as String : null,
-      map['endereco'] != null ? map['endereco'] as String : null,
-      map['bairro'] != null ? map['bairro'] as String : null,
-      map['numero'] != null ? map['numero'] as String : null,
-      map['municipio'] != null ? map['municipio'] as String : null,
-      map['municipio_uf'] != null ? map['municipio_uf'] as String : null,
-      map['cep'] != null ? map['cep'] as String : null,
-      map['email'] != null ? map['email'] as String : null,
-      map['site'] != null ? map['site'] as String : null,
-      map['complemento'] != null ? map['complemento'] as String : null,
-      map['estoque_grade'] != null ? map['estoque_grade'] as int : null,
-      map['usar_paf_nfce'] != null ? map['usar_paf_nfce'] as int : null,
-      map['param_nf_crt'] != null ? map['param_nf_crt'] as int : null,
-      map['param_pdv_usar_pvista_pprazo'] != null ? map['param_pdv_usar_pvista_pprazo'] as int : null,
-      map['param_vendas_tpcomissao'] != null ? map['param_vendas_tpcomissao'] as int : null,
-      map['param_vendas_portador'] != null ? map['param_vendas_portador'] as int : null,
-      map['param_vendas_descmaximo'] != null ? map['param_vendas_descmaximo'] as double : null,
-      map['param_pdv_codigopesagem'] != null ? map['param_pdv_codigopesagem'] as int : null,
-      map['param_pdv_formapagto'] != null ? map['param_pdv_formapagto'] as int : null,
-      map['param_pdv_cliente'] != null ? map['param_pdv_cliente'] as int : null,
-      map['param_pdv_bloq_est_neg'] != null ? map['param_pdv_bloq_est_neg'] as int : null,
-      map['param_pdv_validar_cx_fechado'] != null ? map['param_pdv_validar_cx_fechado'] as int : null,
-      map['param_pdv_senha_cancelar'] != null ? map['param_pdv_senha_cancelar'] as int : null,
-      map['param_pdv_imp_cp_nf_venda'] != null ? map['param_pdv_imp_cp_nf_venda'] as int : null,
-      map['param_pdv_prodcomposto'] != null ? map['param_pdv_prodcomposto'] as int : null,
-      map['param_pdv_informa_cliente'] != null ? map['param_pdv_informa_cliente'] as int : null,
-      map['param_pdv_vendedor_venda'] != null ? map['param_pdv_vendedor_venda'] as int : null,
-      map['param_pdv_cartao_gerarparc'] != null ? map['param_pdv_cartao_gerarparc'] as int : null,
-      map['param_pdv_imp_comprovante'] != null ? map['param_pdv_imp_comprovante'] as int : null,
-      map['param_pdv_permitir_desconto'] != null ? map['param_pdv_permitir_desconto'] as int : null,
-      map['param_pdv_tipo_desconto'] != null ? map['param_pdv_tipo_desconto'] as int : null,
-      map['param_pdv_gerar_senha'] != null ? map['param_pdv_gerar_senha'] as int : null,
-      map['param_pdv_comanda_producao'] != null ? map['param_pdv_comanda_producao'] as int : null,
+      id: map['id'] as int,
+      name: map['name'] != null ? map['name'] as String : null,
+      fantasia: map['fantasia'] != null ? map['fantasia'] as String : null,
+      cnpj: map['cnpj'] != null ? map['cnpj'] as String : null,
+      fone1: map['fone1'] != null ? map['fone1'] as String : null,
+      cep: map['cep'] != null ? map['cep'] as String : null,
+      endereco: map['endereco'] != null ? map['endereco'] as String : null,
+      enderecoNumero: map['enderecoNumero'] != null ? map['enderecoNumero'] as String : null,
+      bairro: map['bairro'] != null ? map['bairro'] as String : null,
+      complemento: map['complemento'] != null ? map['complemento'] as String : null,
+      idMunicipio: map['idMunicipio'] != null ? map['idMunicipio'] as String : null,
+      municipio: map['municipio'] != null ? map['municipio'] as String : null,
+      email: map['email'] != null ? map['email'] as String : null,
+      status: map['status'] != null ? map['status'] as int : null,
+      logo_padrao: map['logo_padrao'] != null ? map['logo_padrao'] as String : null,
+      logo_branca: map['logo_branca'] != null ? map['logo_branca'] as String : null,
     );
   }
 

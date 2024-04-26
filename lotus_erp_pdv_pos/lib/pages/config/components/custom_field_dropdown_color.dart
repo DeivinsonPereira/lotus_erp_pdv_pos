@@ -83,7 +83,7 @@ class CustomFieldDropdownColor extends StatelessWidget {
               children: [
                 _buildContainer(_),
                 Positioned(
-                  bottom: 40,
+                  bottom: 38,
                   left: 10,
                   child: _buildTextLabel(),
                 )

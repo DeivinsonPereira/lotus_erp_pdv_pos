@@ -17,8 +17,8 @@ class OpenRegisterServidorRepository {
   final Logger _logger = Logger();
 
   Future<bool> openRegister() async {
-    var uri = Uri.parse(Endpoints().endpointOpenRegister());
-    int idEmpresa = configController.idCompany.value;
+    var uri = Uri.parse(Endpoints().endpointAbrirCaixa());
+    int idEmpresa = configController.idCompany;
     int idUsuario = configController.userId.value;
     String caixaDataHora = DatetimeFormatterWidget.formatDate(DateTime.now());
     String horaAbertura = DatetimeFormatterWidget.formatHour(DateTime.now());
@@ -38,7 +38,7 @@ class OpenRegisterServidorRepository {
 
       final response = await http.post(
         uri,
-        headers: Header.header,
+        headers: Header.getBasicHeader(),
         body: body,
       );
 

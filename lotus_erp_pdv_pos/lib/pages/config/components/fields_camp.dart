@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 
 import '../../../common/custom_text_field.dart';
 import '../../../controller/config_controller.dart';
-import '../../../repositories/http/get_ip_repository.dart';
 import '../../../services/dependencies.dart';
 import 'custom_field_dropdown_color.dart';
 import 'custom_field_dropdown_monitor.dart';
@@ -18,28 +17,6 @@ class FieldsCamp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var configController = Dependencies.configController();
-
-    // Constrói o campo para numero do contrato/ip
-    Widget _buildIpField() {
-      return CustomTextField(
-        textLabel: 'Ip Empresa',
-        icon: FontAwesomeIcons.wifi,
-        controller: configController.contractController,
-        isConfig: true,
-        function: () => GetIp().fetchIp(),
-      );
-    }
-
-    // Constrói o campo para o id da empresa
-    Widget _buildIdCompanyField() {
-      return CustomTextField(
-        textLabel: 'Id Empresa',
-        icon: FontAwesomeIcons.solidBuilding,
-        controller: configController.idCompanyController,
-        isNumeric: true,
-        isPreffixIcon: true,
-      );
-    }
 
     // Constrói o campo para a serie da nfce
     Widget _buildSerieNfceField() {
@@ -58,17 +35,6 @@ class FieldsCamp extends StatelessWidget {
         textLabel: 'N° Caixa',
         icon: FontAwesomeIcons.cashRegister,
         controller: configController.numCaixaController,
-        isNumeric: true,
-        isPreffixIcon: true,
-      );
-    }
-
-    // Constrói o campo para o intervalo
-    Widget _buildIntervalField() {
-      return CustomTextField(
-        textLabel: 'Intervalo',
-        icon: FontAwesomeIcons.solidClock,
-        controller: configController.intervalController,
         isNumeric: true,
         isPreffixIcon: true,
       );
@@ -104,15 +70,11 @@ class FieldsCamp extends StatelessWidget {
 
     return Column(children: [
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
-        child: _buildIpField(),
-      ),
-      Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0),
         child: SizedBox(
           width: Get.size.width * 0.9,
           child: Row(children: [
-            Expanded(child: _buildIdCompanyField()),
+            Expanded(child: _buildNumCaixaField()),
             const SizedBox(
               width: 2.0,
             ),
@@ -121,22 +83,7 @@ class FieldsCamp extends StatelessWidget {
         ),
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2.0),
-        child: SizedBox(
-          width: Get.size.width * 0.9,
-          child: Row(
-            children: [
-              Expanded(child: _buildNumCaixaField()),
-              const SizedBox(
-                width: 2.0,
-              ),
-              Expanded(child: _buildIntervalField()),
-            ],
-          ),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        padding: const EdgeInsets.symmetric(vertical: 6.0),
         child: SizedBox(
             width: Get.size.width * 0.9,
             child: Row(

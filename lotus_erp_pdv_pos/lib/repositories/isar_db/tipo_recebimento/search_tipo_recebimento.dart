@@ -9,15 +9,16 @@ import 'package:lotus_erp_pdv_pos/models/collections/tipo_recebimento.dart';
 
 import '../../components/endpoints.dart';
 import '../../components/header.dart';
+import 'insert_tipo_recebimento.dart';
 
 class SearchPaymentType {
   final Logger _logger = Logger();
 
   Future<List<tipo_recebimento>> search(BuildContext context) async {
-    Uri uri = Uri.parse(Endpoints().endpointSearchTypePayment());
+    Uri uri = Uri.parse(Endpoints().endpointTipoRecebimento());
 
     try {
-      var response = await http.get(uri, headers: Header.header);
+      var response = await http.get(uri, headers: Header.getBasicHeader());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (data['success'] == true) {
@@ -25,14 +26,16 @@ class SearchPaymentType {
           for (var receb in data['itens']) {
             paymentType.add(tipo_recebimento.fromMap(receb));
           }
-          
+          await InsertTipoRecebimento().insert(context, paymentType);
           return paymentType;
         } else {
-          _logger.e('Erro ao buscar os tipos de pagamento. message: ${data['message']}');
+          _logger.e(
+              'Erro ao buscar os tipos de pagamento. message: ${data['message']}');
           return [];
         }
       } else {
-        _logger.e('Erro ao buscar os tipos de pagamento. statusCode: ${response.statusCode}');
+        _logger.e(
+            'Erro ao buscar os tipos de pagamento. statusCode: ${response.statusCode}');
         return [];
       }
     } catch (e) {

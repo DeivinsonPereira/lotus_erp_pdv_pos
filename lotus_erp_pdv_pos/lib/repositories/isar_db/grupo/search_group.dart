@@ -13,10 +13,10 @@ class SearchGroup {
   final Logger _logger = Logger();
 
   Future<List<produto_grupo>> search(BuildContext context) async {
-    Uri uri = Uri.parse(Endpoints().endpointSearchGroup());
+    Uri uri = Uri.parse(Endpoints().endpointGrupo());
 
     try {
-      var response = await http.get(uri, headers: Header.header);
+      var response = await http.get(uri, headers: Header.getBasicHeader());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (data['success'] == true) {

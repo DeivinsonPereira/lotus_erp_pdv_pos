@@ -32,23 +32,13 @@ const Dado_empresaSchema = CollectionSchema(
       name: r'id_nfce',
       type: IsarType.long,
     ),
-    r'intervalo_envio': PropertySchema(
-      id: 3,
-      name: r'intervalo_envio',
-      type: IsarType.long,
-    ),
-    r'ip_empresa': PropertySchema(
-      id: 4,
-      name: r'ip_empresa',
-      type: IsarType.string,
-    ),
     r'num_caixa': PropertySchema(
-      id: 5,
+      id: 3,
       name: r'num_caixa',
       type: IsarType.long,
     ),
     r'tamanho_impressora': PropertySchema(
-      id: 6,
+      id: 4,
       name: r'tamanho_impressora',
       type: IsarType.string,
     )
@@ -75,12 +65,6 @@ int _dado_empresaEstimateSize(
   var bytesCount = offsets.last;
   bytesCount += 3 + object.cor_fundo.length * 3;
   {
-    final value = object.ip_empresa;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
     final value = object.tamanho_impressora;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -98,10 +82,8 @@ void _dado_empresaSerialize(
   writer.writeString(offsets[0], object.cor_fundo);
   writer.writeLong(offsets[1], object.id_empresa);
   writer.writeLong(offsets[2], object.id_nfce);
-  writer.writeLong(offsets[3], object.intervalo_envio);
-  writer.writeString(offsets[4], object.ip_empresa);
-  writer.writeLong(offsets[5], object.num_caixa);
-  writer.writeString(offsets[6], object.tamanho_impressora);
+  writer.writeLong(offsets[3], object.num_caixa);
+  writer.writeString(offsets[4], object.tamanho_impressora);
 }
 
 dado_empresa _dado_empresaDeserialize(
@@ -114,10 +96,8 @@ dado_empresa _dado_empresaDeserialize(
     cor_fundo: reader.readString(offsets[0]),
     id_empresa: reader.readLongOrNull(offsets[1]),
     id_nfce: reader.readLongOrNull(offsets[2]),
-    intervalo_envio: reader.readLongOrNull(offsets[3]),
-    ip_empresa: reader.readStringOrNull(offsets[4]),
-    num_caixa: reader.readLongOrNull(offsets[5]),
-    tamanho_impressora: reader.readStringOrNull(offsets[6]),
+    num_caixa: reader.readLongOrNull(offsets[3]),
+    tamanho_impressora: reader.readStringOrNull(offsets[4]),
   );
   object.id = id;
   return object;
@@ -139,10 +119,6 @@ P _dado_empresaDeserializeProp<P>(
     case 3:
       return (reader.readLongOrNull(offset)) as P;
     case 4:
-      return (reader.readStringOrNull(offset)) as P;
-    case 5:
-      return (reader.readLongOrNull(offset)) as P;
-    case 6:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -581,234 +557,6 @@ extension dado_empresaQueryFilter
   }
 
   QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      intervalo_envioIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'intervalo_envio',
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      intervalo_envioIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'intervalo_envio',
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      intervalo_envioEqualTo(int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'intervalo_envio',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      intervalo_envioGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'intervalo_envio',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      intervalo_envioLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'intervalo_envio',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      intervalo_envioBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'intervalo_envio',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'ip_empresa',
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'ip_empresa',
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'ip_empresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaGreaterThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'ip_empresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaLessThan(
-    String? value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'ip_empresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaBetween(
-    String? lower,
-    String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'ip_empresa',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'ip_empresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'ip_empresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'ip_empresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'ip_empresa',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'ip_empresa',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
-      ip_empresaIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'ip_empresa',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
       num_caixaIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -1082,33 +830,6 @@ extension dado_empresaQuerySortBy
     });
   }
 
-  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
-      sortByIntervalo_envio() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'intervalo_envio', Sort.asc);
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
-      sortByIntervalo_envioDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'intervalo_envio', Sort.desc);
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByIp_empresa() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'ip_empresa', Sort.asc);
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
-      sortByIp_empresaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'ip_empresa', Sort.desc);
-    });
-  }
-
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByNum_caixa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'num_caixa', Sort.asc);
@@ -1187,33 +908,6 @@ extension dado_empresaQuerySortThenBy
     });
   }
 
-  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
-      thenByIntervalo_envio() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'intervalo_envio', Sort.asc);
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
-      thenByIntervalo_envioDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'intervalo_envio', Sort.desc);
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByIp_empresa() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'ip_empresa', Sort.asc);
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
-      thenByIp_empresaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'ip_empresa', Sort.desc);
-    });
-  }
-
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByNum_caixa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'num_caixa', Sort.asc);
@@ -1262,20 +956,6 @@ extension dado_empresaQueryWhereDistinct
     });
   }
 
-  QueryBuilder<dado_empresa, dado_empresa, QDistinct>
-      distinctByIntervalo_envio() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'intervalo_envio');
-    });
-  }
-
-  QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctByIp_empresa(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'ip_empresa', caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctByNum_caixa() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'num_caixa');
@@ -1314,18 +994,6 @@ extension dado_empresaQueryProperty
   QueryBuilder<dado_empresa, int?, QQueryOperations> id_nfceProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id_nfce');
-    });
-  }
-
-  QueryBuilder<dado_empresa, int?, QQueryOperations> intervalo_envioProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'intervalo_envio');
-    });
-  }
-
-  QueryBuilder<dado_empresa, String?, QQueryOperations> ip_empresaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'ip_empresa');
     });
   }
 

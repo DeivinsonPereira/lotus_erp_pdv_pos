@@ -3,26 +3,26 @@ import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Login {
 
-  String usuario;
-  String senha;
+  String login;
+  String password;
   Login({
-    required this.usuario,
-    required this.senha,
+    required this.login,
+    required this.password,
   });
   
 
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'usuario': usuario,
-      'senha': senha,
+      'login': login,
+      'password': password,
     };
   }
 
   factory Login.fromMap(Map<String, dynamic> map) {
     return Login(
-      usuario: map['usuario'] as String,
-      senha: map['senha'] as String,
+      login: map['login'] as String,
+      password: map['password'] as String,
     );
   }
 

@@ -21,7 +21,7 @@ class PostNfce {
   Logger logger = Logger();
 
   Future<String> postNfce(BuildContext context) async {
-    Uri uri = Uri.parse(Endpoints().endpointPostNFCE());
+    Uri uri = Uri.parse(Endpoints().endpointNfceEmitir());
 
     try {
       var item = [];
@@ -56,7 +56,7 @@ class PostNfce {
         "id_venda_servidor": 0, // --> SEMPRE ZERADO
         "data_venda": DatetimeFormatterWidget.formatDate(DateTime.now()),
         "hora_venda": DatetimeFormatterWidget.formatHour(DateTime.now()),
-        "id_empresa": configController.idCompany.value,
+        "id_empresa": configController.idCompany,
         "id_vendedor": configController.collaboratorId.value,
         "id_usuario": configController.userId.value,
         "tot_bruto": billController.getTotal(),
@@ -64,7 +64,7 @@ class PostNfce {
         "tot_desc_vlr": 0.0,
         "tot_liquido": billController.getTotal(),
         "valor_troco": 0.0,
-        "id_serie_nfce": configController.idNfce.value,
+        "id_serie_nfce": configController.serieNfce,
         "cpf_cnpj": '',
         "totem_id": 1,
         "totem_dinheiro": "",
@@ -74,9 +74,8 @@ class PostNfce {
       };
 
       var formattedBody = json.encode(bodyRequest);
-      print(formattedBody);
-      var response =
-          await http.post(uri, body: formattedBody, headers: Header.header);
+      var response = await http.post(uri,
+          body: formattedBody, headers: Header.getBasicHeader());
       if (response.statusCode == 200) {
         logger.i("Requisição enviada com sucesso");
         var jsonResponse = jsonDecode(response.body);

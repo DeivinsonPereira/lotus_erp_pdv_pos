@@ -10,25 +10,37 @@ part 'empresa_valida.g.dart';
 @Collection()
 class empresa_valida {
   Id id = Isar.autoIncrement;
-  String nocontrato;
-  DateTime? data_limite;
-  
+  String? contrato;
+  int? id_cliente;
+  String? ip_servidor;
+  String? licenca;
+  String? cnpj;
+
   empresa_valida({
-    required this.nocontrato,
-    this.data_limite,
+    this.contrato,
+    this.id_cliente,
+    this.ip_servidor,
+    this.licenca,
+    this.cnpj,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'nocontrato': nocontrato,
-      'data_limite': data_limite?.millisecondsSinceEpoch,
+      'contrato': contrato,
+      'id_cliente': id_cliente,
+      'ip_servidor': ip_servidor,
+      'licenca': licenca,
+      'cnpj': cnpj,
     };
   }
 
   factory empresa_valida.fromMap(Map<String, dynamic> map) {
     return empresa_valida(
-      nocontrato: map['nocontrato'] as String,
-      data_limite: map['data_limite'] != null ? DateTime.fromMillisecondsSinceEpoch(map['data_limite'] as int) : null,
+      contrato: map['contrato'] != null ? map['contrato'] as String : null,
+      id_cliente: map['id'] != null ? map['id'] as int : null,
+      ip_servidor: map['ip_servidor'] != null ? map['ip_servidor'] as String : null,
+      licenca: map['licenca'] != null ? map['licenca'] as String : null,
+      cnpj: map['cnpj'] != null ? map['cnpj'] as String : null,
     );
   }
 

@@ -1,4 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotus_erp_pdv_pos/controller/empresa_valida_controller.dart';
+import 'package:lotus_erp_pdv_pos/controller/password_controller.dart';
 
 import '../controller/bill_controller.dart';
 import '../controller/config_controller.dart';
@@ -64,4 +67,21 @@ class Dependencies {
       return Get.put(OpenRegisterController());
     }
   }
+
+  static EmpresaValidaController empresaValidaController() {
+    if (Get.isRegistered<EmpresaValidaController>()) {
+      return Get.find<EmpresaValidaController>();
+    }else {
+      return Get.put(EmpresaValidaController());
+    }
+  }
+
+  static PasswordController passwordController(BuildContext context) {
+    if (Get.isRegistered<PasswordController>()) {
+      return Get.find<PasswordController>();
+    } else {
+      return Get.put(PasswordController(context));
+    }
+  }
+
 }

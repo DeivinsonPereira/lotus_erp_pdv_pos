@@ -1,5 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
+/*
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -14,10 +14,10 @@ class SearchUsuario {
   final Logger _logger = Logger();
 
   Future<List<usuario>> search(BuildContext context) async {
-    Uri uri = Uri.parse(Endpoints().endpointSearchUsuario());
+    Uri uri = Uri.parse(Endpoints().endpointuSearchUsuario());
 
     try {
-      var response = await http.get(uri, headers: Header.header);
+      var response = await http.get(uri, headers: Header.getBasicHeader());
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         if (data['success'] == true) {
@@ -41,3 +41,4 @@ class SearchUsuario {
     }
   }
 }
+*/

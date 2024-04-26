@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../controller/login_controller.dart';
 import '../services/dependencies.dart';
-import '../services/format_txt.dart';
 import 'constant/custom_colors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   bool? isPreffixIcon;
   bool? isNumeric;
   Function()? function;
+  List<TextInputFormatter>? inputFormatters;
 
   CustomTextField({
     Key? key,
@@ -29,6 +30,7 @@ class CustomTextField extends StatelessWidget {
     this.isPreffixIcon = false,
     this.isNumeric = false,
     this.function,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -36,7 +38,7 @@ class CustomTextField extends StatelessWidget {
     LoginController loginController = Dependencies.loginController();
 
     return TextFormField(
-      inputFormatters: [UpperCaseTxt()],
+      inputFormatters: inputFormatters,
       keyboardType:
           isNumeric == true ? TextInputType.number : TextInputType.text,
       controller: controller,

@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+/*import 'package:isar/isar.dart';
 import 'package:logger/logger.dart';
 import 'package:lotus_erp_pdv_pos/models/collections/usuario.dart';
 import 'package:lotus_erp_pdv_pos/repositories/isar_db/isar_service.dart';
@@ -25,3 +25,4 @@ class GetUsuario {
     }
   }
 }
+*/

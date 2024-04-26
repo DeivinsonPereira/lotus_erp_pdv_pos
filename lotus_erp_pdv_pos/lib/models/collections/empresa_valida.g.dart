@@ -17,14 +17,29 @@ const Empresa_validaSchema = CollectionSchema(
   name: r'empresa_valida',
   id: 3239250073434447488,
   properties: {
-    r'data_limite': PropertySchema(
+    r'cnpj': PropertySchema(
       id: 0,
-      name: r'data_limite',
-      type: IsarType.dateTime,
+      name: r'cnpj',
+      type: IsarType.string,
     ),
-    r'nocontrato': PropertySchema(
+    r'contrato': PropertySchema(
       id: 1,
-      name: r'nocontrato',
+      name: r'contrato',
+      type: IsarType.string,
+    ),
+    r'id_cliente': PropertySchema(
+      id: 2,
+      name: r'id_cliente',
+      type: IsarType.long,
+    ),
+    r'ip_servidor': PropertySchema(
+      id: 3,
+      name: r'ip_servidor',
+      type: IsarType.string,
+    ),
+    r'licenca': PropertySchema(
+      id: 4,
+      name: r'licenca',
       type: IsarType.string,
     )
   },
@@ -48,7 +63,30 @@ int _empresa_validaEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.nocontrato.length * 3;
+  {
+    final value = object.cnpj;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.contrato;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.ip_servidor;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.licenca;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -58,8 +96,11 @@ void _empresa_validaSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.data_limite);
-  writer.writeString(offsets[1], object.nocontrato);
+  writer.writeString(offsets[0], object.cnpj);
+  writer.writeString(offsets[1], object.contrato);
+  writer.writeLong(offsets[2], object.id_cliente);
+  writer.writeString(offsets[3], object.ip_servidor);
+  writer.writeString(offsets[4], object.licenca);
 }
 
 empresa_valida _empresa_validaDeserialize(
@@ -69,8 +110,11 @@ empresa_valida _empresa_validaDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = empresa_valida(
-    data_limite: reader.readDateTimeOrNull(offsets[0]),
-    nocontrato: reader.readString(offsets[1]),
+    cnpj: reader.readStringOrNull(offsets[0]),
+    contrato: reader.readStringOrNull(offsets[1]),
+    id_cliente: reader.readLongOrNull(offsets[2]),
+    ip_servidor: reader.readStringOrNull(offsets[3]),
+    licenca: reader.readStringOrNull(offsets[4]),
   );
   object.id = id;
   return object;
@@ -84,9 +128,15 @@ P _empresa_validaDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
+    case 2:
+      return (reader.readLongOrNull(offset)) as P;
+    case 3:
+      return (reader.readStringOrNull(offset)) as P;
+    case 4:
+      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -189,75 +239,309 @@ extension empresa_validaQueryWhere
 extension empresa_validaQueryFilter
     on QueryBuilder<empresa_valida, empresa_valida, QFilterCondition> {
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      data_limiteIsNull() {
+      cnpjIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'data_limite',
+        property: r'cnpj',
       ));
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      data_limiteIsNotNull() {
+      cnpjIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'data_limite',
+        property: r'cnpj',
       ));
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      data_limiteEqualTo(DateTime? value) {
+      cnpjEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'data_limite',
+        property: r'cnpj',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      data_limiteGreaterThan(
-    DateTime? value, {
+      cnpjGreaterThan(
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'data_limite',
+        property: r'cnpj',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      data_limiteLessThan(
-    DateTime? value, {
+      cnpjLessThan(
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'data_limite',
+        property: r'cnpj',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      data_limiteBetween(
-    DateTime? lower,
-    DateTime? upper, {
+      cnpjBetween(
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'data_limite',
+        property: r'cnpj',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      cnpjStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'cnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      cnpjEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'cnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      cnpjContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'cnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      cnpjMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'cnpj',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      cnpjIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'cnpj',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      cnpjIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'cnpj',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'contrato',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'contrato',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'contrato',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'contrato',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'contrato',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'contrato',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'contrato',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'contrato',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'contrato',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'contrato',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'contrato',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      contratoIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'contrato',
+        value: '',
       ));
     });
   }
@@ -318,13 +602,105 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoEqualTo(
-    String value, {
+      id_clienteIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id_cliente',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      id_clienteIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id_cliente',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      id_clienteEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_cliente',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      id_clienteGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_cliente',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      id_clienteLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_cliente',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      id_clienteBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_cliente',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      ip_servidorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'ip_servidor',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      ip_servidorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'ip_servidor',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      ip_servidorEqualTo(
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'nocontrato',
+        property: r'ip_servidor',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -332,15 +708,15 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoGreaterThan(
-    String value, {
+      ip_servidorGreaterThan(
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'nocontrato',
+        property: r'ip_servidor',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -348,15 +724,15 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoLessThan(
-    String value, {
+      ip_servidorLessThan(
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'nocontrato',
+        property: r'ip_servidor',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -364,16 +740,16 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoBetween(
-    String lower,
-    String upper, {
+      ip_servidorBetween(
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'nocontrato',
+        property: r'ip_servidor',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -384,13 +760,13 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoStartsWith(
+      ip_servidorStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'nocontrato',
+        property: r'ip_servidor',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -398,13 +774,13 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoEndsWith(
+      ip_servidorEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'nocontrato',
+        property: r'ip_servidor',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -412,10 +788,10 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoContains(String value, {bool caseSensitive = true}) {
+      ip_servidorContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'nocontrato',
+        property: r'ip_servidor',
         value: value,
         caseSensitive: caseSensitive,
       ));
@@ -423,10 +799,10 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoMatches(String pattern, {bool caseSensitive = true}) {
+      ip_servidorMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'nocontrato',
+        property: r'ip_servidor',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
@@ -434,20 +810,174 @@ extension empresa_validaQueryFilter
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoIsEmpty() {
+      ip_servidorIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'nocontrato',
+        property: r'ip_servidor',
         value: '',
       ));
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      nocontratoIsNotEmpty() {
+      ip_servidorIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'nocontrato',
+        property: r'ip_servidor',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'licenca',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'licenca',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'licenca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'licenca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'licenca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'licenca',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'licenca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'licenca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'licenca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'licenca',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'licenca',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      licencaIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'licenca',
         value: '',
       ));
     });
@@ -462,48 +992,97 @@ extension empresa_validaQueryLinks
 
 extension empresa_validaQuerySortBy
     on QueryBuilder<empresa_valida, empresa_valida, QSortBy> {
-  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
-      sortByData_limite() {
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy> sortByCnpj() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'data_limite', Sort.asc);
+      return query.addSortBy(r'cnpj', Sort.asc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy> sortByCnpjDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cnpj', Sort.desc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy> sortByContrato() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'contrato', Sort.asc);
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
-      sortByData_limiteDesc() {
+      sortByContratoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'data_limite', Sort.desc);
+      return query.addSortBy(r'contrato', Sort.desc);
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
-      sortByNocontrato() {
+      sortById_cliente() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'nocontrato', Sort.asc);
+      return query.addSortBy(r'id_cliente', Sort.asc);
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
-      sortByNocontratoDesc() {
+      sortById_clienteDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'nocontrato', Sort.desc);
+      return query.addSortBy(r'id_cliente', Sort.desc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
+      sortByIp_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'ip_servidor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
+      sortByIp_servidorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'ip_servidor', Sort.desc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy> sortByLicenca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'licenca', Sort.asc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
+      sortByLicencaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'licenca', Sort.desc);
     });
   }
 }
 
 extension empresa_validaQuerySortThenBy
     on QueryBuilder<empresa_valida, empresa_valida, QSortThenBy> {
-  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
-      thenByData_limite() {
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy> thenByCnpj() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'data_limite', Sort.asc);
+      return query.addSortBy(r'cnpj', Sort.asc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy> thenByCnpjDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cnpj', Sort.desc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy> thenByContrato() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'contrato', Sort.asc);
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
-      thenByData_limiteDesc() {
+      thenByContratoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'data_limite', Sort.desc);
+      return query.addSortBy(r'contrato', Sort.desc);
     });
   }
 
@@ -520,33 +1099,81 @@ extension empresa_validaQuerySortThenBy
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
-      thenByNocontrato() {
+      thenById_cliente() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'nocontrato', Sort.asc);
+      return query.addSortBy(r'id_cliente', Sort.asc);
     });
   }
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
-      thenByNocontratoDesc() {
+      thenById_clienteDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'nocontrato', Sort.desc);
+      return query.addSortBy(r'id_cliente', Sort.desc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
+      thenByIp_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'ip_servidor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
+      thenByIp_servidorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'ip_servidor', Sort.desc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy> thenByLicenca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'licenca', Sort.asc);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterSortBy>
+      thenByLicencaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'licenca', Sort.desc);
     });
   }
 }
 
 extension empresa_validaQueryWhereDistinct
     on QueryBuilder<empresa_valida, empresa_valida, QDistinct> {
-  QueryBuilder<empresa_valida, empresa_valida, QDistinct>
-      distinctByData_limite() {
+  QueryBuilder<empresa_valida, empresa_valida, QDistinct> distinctByCnpj(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'data_limite');
+      return query.addDistinctBy(r'cnpj', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<empresa_valida, empresa_valida, QDistinct> distinctByNocontrato(
+  QueryBuilder<empresa_valida, empresa_valida, QDistinct> distinctByContrato(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'nocontrato', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'contrato', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QDistinct>
+      distinctById_cliente() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id_cliente');
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QDistinct> distinctByIp_servidor(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'ip_servidor', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QDistinct> distinctByLicenca(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'licenca', caseSensitive: caseSensitive);
     });
   }
 }
@@ -559,16 +1186,34 @@ extension empresa_validaQueryProperty
     });
   }
 
-  QueryBuilder<empresa_valida, DateTime?, QQueryOperations>
-      data_limiteProperty() {
+  QueryBuilder<empresa_valida, String?, QQueryOperations> cnpjProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'data_limite');
+      return query.addPropertyName(r'cnpj');
     });
   }
 
-  QueryBuilder<empresa_valida, String, QQueryOperations> nocontratoProperty() {
+  QueryBuilder<empresa_valida, String?, QQueryOperations> contratoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'nocontrato');
+      return query.addPropertyName(r'contrato');
+    });
+  }
+
+  QueryBuilder<empresa_valida, int?, QQueryOperations> id_clienteProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_cliente');
+    });
+  }
+
+  QueryBuilder<empresa_valida, String?, QQueryOperations>
+      ip_servidorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'ip_servidor');
+    });
+  }
+
+  QueryBuilder<empresa_valida, String?, QQueryOperations> licencaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'licenca');
     });
   }
 }
