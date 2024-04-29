@@ -2,14 +2,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../common/constant/custom_colors.dart';
-import '../../../common/constant/custom_text_style.dart';
+import 'constant/custom_colors.dart';
+import 'constant/custom_text_style.dart';
 
-class ContainerDate extends StatelessWidget {
+class CustomContainerDialog extends StatelessWidget {
   final String text;
   final String information;
   final double width;
-  const ContainerDate({
+  const CustomContainerDialog({
     Key? key,
     required this.text,
     required this.information,
@@ -18,7 +18,6 @@ class ContainerDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     // Constrói a informação
     Widget _buildDate() {
       return SizedBox(

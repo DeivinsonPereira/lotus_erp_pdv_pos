@@ -11,25 +11,25 @@ part 'caixa.g.dart';
 class caixa {
   Id id_caixa = Isar.autoIncrement;
 
-  int id_empresa;
-  int abertura_id_user;
-  DateTime abertura_data;
-  String abertura_hora;
-  double abertura_valor;
-  int status;
+  int? id_empresa;
+  int? abertura_id_user;
+  String? abertura_data;
+  String? abertura_hora;
+  double? abertura_valor;
+  int? status;
   int? fechou_id_user;
-  DateTime? fechou_data;
+  String? fechou_data;
   String? fechou_hora;
   int? enviado;
   int? id_caixa_servidor;
 
   caixa({
-    required this.id_empresa,
-    required this.abertura_id_user,
-    required this.abertura_data,
-    required this.abertura_hora,
-    required this.abertura_valor,
-    required this.status,
+    this.id_empresa,
+    this.abertura_id_user,
+    this.abertura_data,
+    this.abertura_hora,
+    this.abertura_valor,
+    this.status,
     this.fechou_id_user,
     this.fechou_data,
     this.fechou_hora,
@@ -41,12 +41,12 @@ class caixa {
     return <String, dynamic>{
       'id_empresa': id_empresa,
       'abertura_id_user': abertura_id_user,
-      'abertura_data': abertura_data.millisecondsSinceEpoch,
+      'abertura_data': abertura_data,
       'abertura_hora': abertura_hora,
       'abertura_valor': abertura_valor,
       'status': status,
       'fechou_id_user': fechou_id_user,
-      'fechou_data': fechou_data?.millisecondsSinceEpoch,
+      'fechou_data': fechou_data,
       'fechou_hora': fechou_hora,
       'enviado': enviado,
       'id_caixa_servidor': id_caixa_servidor,
@@ -55,20 +55,24 @@ class caixa {
 
   factory caixa.fromMap(Map<String, dynamic> map) {
     return caixa(
-      id_empresa: map['id_empresa'] as int,
-      abertura_id_user: map['abertura_id_user'] as int,
+      id_empresa: map['id_empresa'] != null ? map['id_empresa'] as int : null,
+      abertura_id_user: map['abertura_id_user'] != null
+          ? map['abertura_id_user'] as int
+          : null,
       abertura_data:
-          DateTime.fromMillisecondsSinceEpoch(map['abertura_data'] as int),
-      abertura_hora: map['abertura_hora'] as String,
-      abertura_valor: map['abertura_valor'] is int
-          ? (map['abertura_valor'] as int).toDouble()
-          : map['abertura_valor'] as double,
-      status: map['status'] as int,
+          map['abertura_data'] != null ? map['abertura_data'] as String : null,
+      abertura_hora:
+          map['abertura_hora'] != null ? map['abertura_hora'] as String : null,
+      abertura_valor: map['abertura_valor'] != null
+          ? map['abertura_valor'] is int
+              ? (map['abertura_valor'] as int).toDouble()
+              : map['abertura_valor'] as double
+          : null,
+      status: map['status'] != null ? map['status'] as int : null,
       fechou_id_user:
           map['fechou_id_user'] != null ? map['fechou_id_user'] as int : null,
-      fechou_data: map['fechou_data'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['fechou_data'] as int)
-          : null,
+      fechou_data:
+          map['fechou_data'] != null ? map['fechou_data'] as String : null,
       fechou_hora:
           map['fechou_hora'] != null ? map['fechou_hora'] as String : null,
       enviado: map['enviado'] != null ? map['enviado'] as int : null,

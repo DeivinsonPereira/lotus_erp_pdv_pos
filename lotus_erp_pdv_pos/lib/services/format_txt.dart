@@ -2,6 +2,8 @@
 
 import 'package:flutter/services.dart';
 
+import 'format_numbers.dart';
+
 //transforma os textos em minusculo
 class LowerCaseTxt extends TextInputFormatter {
   @override
@@ -26,6 +28,30 @@ class LimitTxt {
     String txtFormatted =
         txt.length <= maxLength ? txt : '${txt.substring(0, maxLength)}...';
     return txtFormatted;
+  }
+}
+
+// cria uma mascara para que o valor do textfield começe com 0,00
+//e vai acrescentando conforme for digitando
+// O numero máximo é de 2147483647
+class ValueMoneyMask extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    String valor = newValue.text.replaceAll(',', '').replaceAll('.', '');
+    valor = valor.padLeft(3, '0');
+    double valorNumerico = int.parse(valor) / 100;
+
+    // Verifica se o valor numérico é maior que o número máximo permitido
+    if (valorNumerico > 2147483647) {
+      valorNumerico = 2147483647;
+    }
+
+    String novoTexto = FormatNumbers.formatNumbertoString(valorNumerico);
+    return TextEditingValue(
+      text: novoTexto,
+      selection: TextSelection.collapsed(offset: novoTexto.length),
+    );
   }
 }
 

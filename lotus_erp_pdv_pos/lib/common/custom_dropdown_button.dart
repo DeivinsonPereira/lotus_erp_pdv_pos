@@ -1,15 +1,16 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../services/dependencies.dart';
-import '../../../controller/config_controller.dart';
+import '../controller/config_controller.dart';
+import '../services/dependencies.dart';
 
-class CustomDropdownButtonColor extends StatelessWidget {
+class CustomDropdownButton extends StatelessWidget {
   final List<String> options;
   final String value;
 
-  const CustomDropdownButtonColor({
+  const CustomDropdownButton({
     Key? key,
     required this.options,
     required this.value,
@@ -22,7 +23,7 @@ class CustomDropdownButtonColor extends StatelessWidget {
     return GetBuilder<ConfigController>(builder: (_) {
       return DropdownButtonHideUnderline(
         child: SizedBox(
-          width: Get.width * 0.14,
+          width: Get.size.width * 0.23,
           child: DropdownButton<String>(
             isExpanded: true,
             isDense: true,
@@ -34,7 +35,7 @@ class CustomDropdownButtonColor extends StatelessWidget {
             elevation: 16,
             style: const TextStyle(color: Colors.black),
             onChanged: (newValue) {
-             _.updateColorBackground(newValue!);
+              _.updateSizePrinter(newValue!);
             },
             items: options.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
@@ -46,7 +47,7 @@ class CustomDropdownButtonColor extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(value, style: const TextStyle(fontSize: 12)),
+                        Text(value),
                         const Divider(
                           thickness: 0.5,
                           color: Colors.black,

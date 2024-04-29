@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
   bool? isConfig;
   bool? isPreffixIcon;
   bool? isNumeric;
+  bool? isDense;
   Function()? function;
   List<TextInputFormatter>? inputFormatters;
 
@@ -29,6 +30,7 @@ class CustomTextField extends StatelessWidget {
     this.isConfig = false,
     this.isPreffixIcon = false,
     this.isNumeric = false,
+    this.isDense = false,
     this.function,
     this.inputFormatters,
   }) : super(key: key);
@@ -55,6 +57,7 @@ class CustomTextField extends StatelessWidget {
           ),
           borderSide: BorderSide(color: CustomColors.backSlider, width: 2),
         ),
+        isDense: isDense,
         label: Text(textLabel),
         prefixIcon: isConfig! || isPreffixIcon!
             ? IconButton(

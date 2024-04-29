@@ -11,6 +11,7 @@ class InsertCaixa {
   final IsarService _isarService = IsarService();
   final Logger _logger = Logger();
   var openRegisterController = Dependencies.openRegisterController();
+  var configController = Dependencies.configController();
 
   Future<void> insertCaixa(caixa caixa) async {
     final isar = await _isarService.db;
@@ -41,6 +42,10 @@ class InsertCaixa {
           enviado: openRegisterController.sent);
 
       isar.writeTxn(() async => await isar.caixa_items.put(caixaItem));
+
+      configController.setCaixaSelected(caixa);
+      openRegisterController.toggleIsRegisterOpen(
+          true); //TODO => LEMBRAR DE TROCAR PARA FALSE NO FECHAMENTO
     } catch (e) {
       _logger.e('Falha ao inserir o caixa. $e');
     }

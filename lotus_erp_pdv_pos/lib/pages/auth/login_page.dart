@@ -60,9 +60,9 @@ class LoginPage extends StatelessWidget {
                 password: loginController.passwordController.text,
               );
               bool isLogged = await ExecuteLogin().login(login, context);
-
               if (isLogged) {
                 Get.to(() => const HomePage());
+                loginController.clearAll();
               }
             }
           },

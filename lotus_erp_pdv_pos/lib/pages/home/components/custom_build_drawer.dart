@@ -35,13 +35,13 @@ class CustomBuildDrawer extends StatelessWidget {
               thickness: 1.5,
             ),
             // Constrói os botões
-            ...CustomButtonsDrawer().buildButtonsNavigation(),
+            ...CustomButtonsDrawer().buildButtonsNavigation(context),
             const Divider(
               color: CustomColors.informationBox,
               thickness: 1.5,
             ),
             const Expanded(child: SizedBox()),
-            ...CustomButtonsDrawer().buildLogoutAndExit(),
+            ...CustomButtonsDrawer().buildLogoutAndExit(context),
           ]),
         ),
       );

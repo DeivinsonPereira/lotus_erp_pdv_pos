@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:lotus_erp_pdv_pos/models/collections/empresa_valida.dart';
+import 'package:lotus_erp_pdv_pos/repositories/isar_db/caixa/get_caixa.dart';
 import 'package:lotus_erp_pdv_pos/repositories/isar_db/dado_empresa/get_dado_empresa.dart';
 import 'package:lotus_erp_pdv_pos/repositories/isar_db/empresa_valida/get_empresa_valida.dart';
 import 'package:lotus_erp_pdv_pos/services/datetime_formatter.dart';
 
+import '../models/collections/caixa.dart';
 import '../models/collections/dado_empresa.dart';
 import '../models/collections/empresa.dart';
 import '../pages/config/components/list_dropdown_option.dart';
@@ -30,6 +32,7 @@ class ConfigController extends GetxController {
       {'name': 'AZUL ESCURO', 'color': const Color(0xFF2B305B)}.obs;
 
   empresa? empresaSelected = empresa(id: 0);
+  caixa? caixaSelected = caixa();
 
   var imageLogoPadrao = '';
   var imageLogoBranca = '';
@@ -38,7 +41,8 @@ class ConfigController extends GetxController {
   var userLogin = '';
   var collaboratorId = 0.obs;
 
-  var idCaixaServidor = 0.obs;
+  // TODO LEMBRAR DE ZERAR QUANDO FECHAR O CAIXA
+  var idCaixaServidor = 0;
 
   var currentTime = '00:00:00'.obs;
 
@@ -52,8 +56,10 @@ class ConfigController extends GetxController {
   void setEmpresa(empresa data) => empresaSelected = data;
 
   // Atualiza o id do caixa vindo do servidor
-  void setIdCaixaServidor(String value) =>
-      idCaixaServidor.value = int.parse(value);
+  void setIdCaixaServidor(String value) => idCaixaServidor = int.parse(value);
+
+  // adiciona caixa na variável
+  void setCaixaSelected(caixa? caixa) => caixaSelected = caixa;
 
   // Atualiza o tamanho da impressora
   void updateSizePrinter(String value) {
@@ -67,12 +73,17 @@ class ConfigController extends GetxController {
       dado_empresa? result = await GetDadoEmpresa().getDadoEmpresa();
       empresa_valida? valida =
           await GetEmpresaValida().getDadoTabelaEmpresaValida();
+      caixa? caixaOpened = await GetCaixa().getOpenCaixa();
       if (result != null && valida != null) {
-        //TODO => ajustar aqui
+        if (caixaOpened != null) {
+          idCaixaServidor = caixaOpened.id_caixa_servidor!;
+        }
+        idCompany = result.id_empresa!;
         clienteId = valida.id_cliente!;
         ipSelected = valida.ip_servidor!;
         serieNfceController.text = result.id_nfce.toString();
         numCaixaController.text = result.num_caixa.toString();
+        caixaSelected = caixaOpened;
 
         serieNfce = int.parse(serieNfceController.text);
         numCaixa = int.parse(numCaixaController.text);

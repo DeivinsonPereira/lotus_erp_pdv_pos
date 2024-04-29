@@ -13,6 +13,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var configController = Dependencies.configController();
+    var openRegisterController = Dependencies.openRegisterController();
+    openRegisterController.verifyIsRegisterOpen();
 
     // Constrói o Drawer
     Widget _buildDrawer() {

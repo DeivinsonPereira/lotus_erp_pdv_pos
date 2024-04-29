@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../controller/config_controller.dart';
 import '../../../services/dependencies.dart';
-import 'custom_dropdown_button.dart';
+import '../../../common/custom_dropdown_button.dart';
 
 class CustomFieldDropdown extends StatelessWidget {
   final List<String> options;
@@ -71,10 +71,6 @@ class CustomFieldDropdown extends StatelessWidget {
                         CustomDropdownButton(
                           options: options,
                           value: value,
-                          isBalance: isBalance,
-                          text: text,
-                          isTef: isTef!,
-                          isSizePrinter: isSizePrinter!,
                         ),
                       ],
                     ),

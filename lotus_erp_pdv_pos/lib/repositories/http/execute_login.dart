@@ -39,10 +39,14 @@ class ExecuteLogin {
           return false;
         }
       } else {
+        const CustomCherryError(message: 'Erro ao realizar o login.')
+            .show(context);
         _logger.e('Erro ao realizar o login: ${response.statusCode}');
         return false;
       }
     } catch (e) {
+      const CustomCherryError(message: 'Erro ao realizar o login.')
+          .show(context);
       _logger.e('Erro ao realizar o login: $e');
       return false;
     }

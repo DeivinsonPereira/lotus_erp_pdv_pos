@@ -2,40 +2,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotus_erp_pdv_pos/controller/open_register_controller.dart';
 
-import '../../../controller/config_controller.dart';
 import '../../../services/dependencies.dart';
 
-class CustomDropdownButton extends StatelessWidget {
+class CustomDropdownMoviment extends StatelessWidget {
   final List<String> options;
-  final String value;
-  final String text;
-  bool? isBalance;
-  bool? isTef;
-  bool? isSizePrinter;
 
-  CustomDropdownButton({
+  const CustomDropdownMoviment({
     Key? key,
     required this.options,
-    required this.value,
-    required this.text,
-    this.isBalance = false,
-    this.isTef = false,
-    this.isSizePrinter = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Dependencies.configController();
+    Dependencies.openRegisterController();
 
-    return GetBuilder<ConfigController>(builder: (_) {
+    return GetBuilder<OpenRegisterController>(builder: (_) {
       return DropdownButtonHideUnderline(
         child: SizedBox(
-          width: Get.size.width * 0.23,
+          width: Get.size.width * 0.25,
           child: DropdownButton<String>(
             isExpanded: true,
             isDense: true,
-            value: value,
+            value: _.valueDropdown.value,
             icon: const Icon(
               Icons.keyboard_arrow_down_outlined,
             ),
@@ -43,7 +33,7 @@ class CustomDropdownButton extends StatelessWidget {
             elevation: 16,
             style: const TextStyle(color: Colors.black),
             onChanged: (newValue) {
-              _.updateSizePrinter(newValue!);
+              _.updateValueDropdown(newValue!);
             },
             items: options.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
